@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Visualization</title>
+    <style>
+        body {
+            font: 16px sans-serif;
+            background-color: aliceblue;
+        }
+
+        #chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .axis path, .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            fill: black;
+            font-size: 14px;
+        }
+
+        .dot {
+            stroke: black;
+        }
+
+        .legend text {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .legend path {
+            transform: scale(1.5); /* Increase legend symbol size */
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            width: 200px;
+            height: 80px;
+            padding: 2px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div id="chart-container">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        var margin = { top: 80, right: 350, bottom: 80, left: 120 },  // Increased margin for more space
+            width = 1500 - margin.left - margin.right,   // Increased width of the chart
+            height = 900 - margin.top - margin.bottom;   // Increased height of the chart
+
+        var x = d3.scaleLog().range([0, width]);
+        var y = d3.scaleLog().range([height, 0]);
+        var r = d3.scaleSqrt().range([60, 120]);
+
+        var xAxis = d3.axisBottom().scale(x);
+        var yAxis = d3.axisLeft().scale(y);
+
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+        var symbols = d3.scaleOrdinal(d3.symbols);
+        var symbol = d3.symbol().size(150);
+
+        var svg = d3
+            .select("#chart-container")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr(
+                "transform",
+                "translate(" + margin.left + "," + margin.top + ")"
+            );
+
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        d3.csv('satellites.csv', function(error, data){
+            data.forEach(function(d){
+                d.Apogee = +d.Apogee;
+                d.Perigee = +d.Perigee;
+                d.Age = +d.Age;
+            });
+
+            var xExtent = d3.extent(data, function(d) { return d.Perigee; });
+            var yExtent = d3.extent(data, function(d) { return d.Apogee; });
+
+            // Increase the axis domain expansion by 100% (doubling the extent)
+            x.domain([xExtent[0] * 0.5, xExtent[1] * 2]);  // Doubling the x-axis range
+            y.domain([yExtent[0] * 0.5, yExtent[1] * 2]);  // Doubling the y-axis range
+
+            r.domain(d3.extent(data, function(d) { return d.Age; })).nice();
+
+            svg.append('g')
+                .attr('transform', 'translate(0,' + height + ')')
+                .attr('class', 'x axis')
+                .call(xAxis);
+
+            svg.append('g')
+                .attr('transform', 'translate(0,0)')
+                .attr('class', 'y axis')
+                .call(yAxis);
+
+            svg.append('text')
+                .attr('x', 10)
+                .attr('y', -40)
+                .attr('class', 'label')
+                .style("font-size", "18px")
+                .style("font-weight", "bold")
+                .text('Apogee (In km)');
+
+            svg.append('text')
+                .attr('x', width)
+                .attr('y', height + 50)
+                .attr('text-anchor', 'end')
+                .attr('class', 'label')
+                .style("font-size", "18px")
+                .style("font-weight", "bold")
+                .text('Perigee (In km)');
+
+            var symbolsGroup = svg.selectAll(".symbol")
+                .data(data)
+                .enter().append("path")
+                .attr("class", "symbol")
+                .attr("d", function(d, i) { return symbol.type(symbols(d.Purpose))(); })
+                .style("fill", function(d) { return color(d.Purpose); })
+                .attr("transform", function(d) {
+                    return "translate(" + x(d.Perigee) + "," + y(d.Apogee) + ")";
+                })
+                .on("mouseover", function(d) {
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    tooltip.html("Satellite: " + d.SatelliteName + "<br/>Apogee: " + d.Apogee + "<br/>Perigee: " + d.Perigee)
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                })
+                .on("mouseout", function(d) {
+                    tooltip.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+
+            var clicked = "";
+
+            var legend = svg.selectAll(".legend")
+                .data(color.domain())
+                .enter().append("g")
+                .attr("class", "legend")
+                .attr("transform", function(d, i) { return "translate(" + width + "," + i * 40 + ")"; })
+                .style("cursor", "pointer");
+
+            legend.append("path")
+                .style("fill", function(d) { return color(d); })
+                .attr("d", function(d) { return symbol.type(symbols(d))(); })
+                .attr("transform", "translate(0,0)");
+
+            legend.append("text")
+                .attr("x", 25)
+                .attr("y", 5)
+                .attr("dy", ".35em")
+                .style("text-anchor", "start")
+                .text(function(d) { return d; });
+
+            legend.on("click", function(d) {
+                if (clicked === d) {
+                    // Reset to show all
+                    symbolsGroup.style("opacity", 1);
+                    clicked = "";
+                } else {
+                    // Hide all symbols
+                    symbolsGroup.style("opacity", 0.1);
+                    // Show only the selected category
+                    symbolsGroup.filter(function(e) {
+                        return e.Purpose === d;
+                    }).style("opacity", 1);
+                    clicked = d;
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Satellites Orbiting the Earth</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="../reveal.css">
+		<link rel="stylesheet" href="../theme/league.css" id="theme">
+		<link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="../bubble_chart.css">
+    <link rel="stylesheet" href="stackedBarChart.css">
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section id="Index">
+            <h3>Every Satellite Orbiting the Earth</h3>
+
+        </section>
+
+
+        </section>
+        <section id="StackedChart">
+            <h4>Satellite Age in the Orbit</h4>
+            <iframe src="../../stacked.html" name="targetframe" allowTransparency="true" scrollbar="yes" frameborder="0" height="700" width="1300" >
+            </iframe>
+        </section> 
+
+        </section>
+        <section id="SatellitesByTypes">
+          <h4>What are these satellites used for and type of orbits</h4>
+            <iframe src="../../satellite_purpose.html" name="targetframe" allowTransparency="true" frameborder="0" height="800" width="1100"></iframe>
+            <h7>This is some description about above plot</h7>
+        </section>
+
+        </section>
+       <section id="ApogeePerigee">
+          <h4>Satellites Apogee Vs Perigee</h4>
+          <iframe src="../../scatterPlot.html" name="targetframe" allowTransparency="true" scrollbar="yes" frameborder="0" height="700" width="1300"></iframe>
+       </section>
+
+        </section>
+
+        </section>
+
+        </section>
+      </div>
+    </div>
+
+    <script src="../../lib/js/head.min.js"></script>
+    <script src="../../js/reveal.js"></script>
+    
+    <script>
+
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+          controls: true,
+          progress: true,
+          history: true,
+          center: true,
+          slideNumber: true,
+          touch: true,
+          mouseWheel: true,
+          transition: 'slides',
+          transitionSpeed: 'slow',
+          controlsLayout: 'edges',
+          keyboard: true,
+  
+          // More info https://github.com/hakimel/reveal.js#dependencies
+          dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            { src: 'plugin/notes/notes.js', async: true }
+          ]
+        });
+  
+      </script>
+
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+    <script src="stackedBarChart.js"></script>
+    <script src="../../tooltip.js"></script>
+  </body>
+</html>
