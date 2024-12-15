@@ -17,81 +17,18 @@
     <div class="reveal">
       <div class="slides">
         <section id="Index">
-            <h3>Every Satellite Orbiting the Earth</h3>
-            <p><small>ADARSH KARNE</small></p>
-            <p><small>SHEKAR RAJAMANDRAPU</small></p>
+            <h3>satellites orbiting the earth’s surface</h3>
+            <p><small></small></p>
+            <p><small></small></p>
         </section>
         <section id="VisualizationElements">
-          <h4>About the visualization</h4>
-          <small>
-            <ul>
-              <li class="fragement" data-fragement-index="1"><strong>Visualizaton & Narration Structure</strong></li>
-              <p class="fragement" data-fragement-index="2">This visualization follows a hybrid structure that contains the several scenes. It is based on Interactive
-                 slideshow technique. In each slide, directions and guidance are provided which user can use to move between the slides at any time. 
-              </p>
-              <li class="fragement" data-fragement-index="3"><strong>Scene Utilization</strong></li>
-              <p class="fragement" data-fragement-index="4">The project consists of few slides that contains interactive visualizations to convey the message. User can interact 
-                with these visualization to see the details of the data elements. Each visualization is followed by addition details in order to put additional 
-                light on the chart and data. These scenes were created using Reveal.js library which provides smooth transition between scenes, maintains coherency and 
-                provides rich user experience. The visual elements such as colors, fonts and apperance is consistent throuhout the project.</p>
-              <li class="fragement" data-fragement-index="5"><strong>Annotations</strong></li>
-              <p class="fragement" data-fragement-index="6">Annotations in this project are represented by tooltips which displays the details of the data points user is interested in. 
-                for example, in first stacked bar chart user can see the satellite type, usage and purpose etc. and on the other visualizations, displays Operator country, Apogee and 
-                Perigee etc. These annotations will appers when user will hover on data elements. In zoomable circle pack chart, user will see once they zoom into appropriate circles.
-              </p>
-              <li class="fragement" data-fragement-index="7"><strong>Parameters</strong></li>
-              <p class="fragement" data-fragement-index="8">There are several parameter used throughout the project and in different form. There are two directonal arrows on each slides
-                to navigate between the slides. User can also use mouse rollers or left and right keys from keyboard to navigate. The Arrow in the right direction will
-                always appear to be active and left arrow will not but user can still use left arrow to navigate to previous scenes/slides. At the bottom of the page, 
-                users can also see the progress bar as well as current slide number.
-              </p>
-              <li class="fragement" data-fragement-index="9"><strong>Triggers</strong></li>
-              <p class="fragement" data-fragement-index="10">All the charts in this projects have trigeers. For the first visualization user can filter the visual by clicking on 
-                data labels of the chart. This filters the stacked bar chart and shows only data points which user has selected. By clicking on same label again, user can go back
-                to reset mode and can see full data in the chart. In second visualization, user can click on circles to zoom and see detail level data. Third visualization also has
-                clickable legend to filter the data points on scatter plot.
-            </ul>
-          </small>
-        </section>
-        <section id="Dataset">
-          <h4>The Dataset</h4>
-          <p><small>The dataset used for this visualization is from <a href="https://www.ucsusa.org/nuclear-weapons/space-weapons/satellite-database">Union of Concerned Scientst</a> database. 
-            This dataset consists of data about all the satellites that orbit the earth today. Assembled by experts at the Union of Concerned Scientists (UCS), the Satellite 
-            Database is a listing of the more than 1,700 operational satellites currently in orbit around Earth. The database contains 26 types of data for each satellite, including 
-            technical information about each satellite (mass, power, launch date, expected lifetime) and its orbit (apogee, perigee, inclination, and period), as well as information 
-            on what the satellite is used for, and who owns, operates, and built the satellite.
-          </small></p>
-        </section>
+          
         <section id="StackedChart">
             <h4>Satellite Age in the Orbit</h4>
             <iframe src="stacked.html" name="targetframe" allowTransparency="true" scrollbar="yes" frameborder="0" height="700" width="1300" > 
             </iframe>
         </section> 
-        <section id="StackedDescption">
-            <p>
-                <small>
-                    The Stacked bar chart in the previous screen shows the satellites currently orbiting the earth and its age. These satellites are broken out by its usage
-                    type. Note that these are the satellites that are currently orbiting the earth and functioning. You can use chart legends to filter the data.
-                    This visual reveals some interesting information on how we have made progress throughout the years. For example it can be seen from visual that oldest 
-                    functioning satellite that is still orbiting the Earth was launched 44 years ago for mix use of Military and Commercial purpose. Many of these old satellites 
-                    were used for either military or commercial purposes. 
-                </small>
-              </p>
-              <p>
-                <small>
-                  Another observation which is somewhat obvious is the increase in number of satellites launched in recent years. We can see that since the 
-                  beginning of the century there are constant increase in satellites launched year over year. Majority of these satellites appeares to be used for commercial and
-                  military purpose but we see an increase in other purposes as well.
-                </small>
-              </p>
-              <p>
-                  <small>
-                    These satellites serve specific purpose and orbit in its unique class. Some of the satellites have its fixed orbit type and orbit class i.e. how far it is 
-                    orbiting from the earth, how the path of orbit look like etc. In the next screen let's take a look where these satellites are grouped by its purpose and 
-                    then again by orbit type and its class.  
-                  </small>
-                </p>
-        </section> 
+       
         <section id="SatellitesByTypes">
           <h4>What are these satellites used for</h4>
             <iframe src="satellite_purpose.html" name="targetframe" allowTransparency="true" frameborder="0" height="800" width="1100"></iframe>
